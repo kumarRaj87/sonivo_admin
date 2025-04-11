@@ -4,11 +4,11 @@ import { FaSave } from "react-icons/fa";
 function WebConfig() {
     const [allowCustomHome, setAllowCustomHome] = useState(false);
     const [formData, setFormData] = useState({
-        sonivoAi: 'Sonivo ai',
+        sonivoAi: 'sonivo ai',
         currencyCode: 'USD',
         currencySymbol: '$',
         exchangeRate: '1',
-        seoDescription: 'Sonivo - AI Call Center solution with SIP integration, AI call assistant, and advanced call dialer. Build seamless call flows with our drag-and-drop flow builder, and boost customer satisfaction with real-time analytics. Streamline your call center operations and elevate customer service with Sonivo.',
+        seoDescription: 'sonivo - AI Call Center solution with SIP integration, AI call assistant, and advanced call dialer. Build seamless call flows with our drag-and-drop flow builder, and boost customer satisfaction with real-time analytics. Streamline your call center operations and elevate customer service with sonivo.',
         frontPageVideo: 'https://youtu.be/HnSQxSiWaxE?si=OrM-U2z7jxXY996C',
         customHomeUrl: 'https://google.com'
     });
@@ -89,7 +89,7 @@ function WebConfig() {
                             <div className="absolute -top-2.5 left-3 bg-[#F7FAFC] px-1 
               transition-all duration-300 
               text-primary text-[11px]">
-                                Sonivo Ai
+                                sonivo Ai
                             </div>
                             <input
                                 type="text"

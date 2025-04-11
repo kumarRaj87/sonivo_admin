@@ -1,3 +1,5 @@
+
+
 import React, { useState } from 'react';
 import { X, Upload } from 'lucide-react';
 
@@ -12,7 +14,7 @@ const Modal = ({ isOpen, onClose, row }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-[5002]">
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-[6500]">
       <div className="bg-white rounded-lg p-8 max-w-md w-full mx-4">
         <div className="flex justify-between items-center mb-6">
           <h2 className="text-xl font-semibold">Edit Record</h2>
@@ -22,21 +24,25 @@ const Modal = ({ isOpen, onClose, row }) => {
         </div>
 
         <form className="space-y-4">
-          <div>
-            <label className="block text-sm font-medium text-gray-700">Payment Mode</label>
+          <div className="relative group">
+            <div className="absolute -top-2.5 left-3 bg-white px-1 text-primary text-[11px]">
+              Payment Mode
+            </div>
             <input
               type="text"
               defaultValue={row?.payment_mode}
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+              className="w-full pl-3 text-sm rounded-[9px] pr-3 py-2 border border-gray-300 focus:outline-none focus:ring-[1px] focus:ring-primary focus:border-primary"
             />
           </div>
 
-          <div>
-            <label className="block text-sm font-medium text-gray-700">Amount</label>
+          <div className="relative group">
+            <div className="absolute -top-2.5 left-3 bg-white px-1 text-primary text-[11px]">
+              Amount
+            </div>
             <input
               type="number"
               defaultValue={row?.amount}
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+              className="w-full pl-3 text-sm rounded-[9px] pr-3 py-2 border border-gray-300 focus:outline-none focus:ring-[1px] focus:ring-primary focus:border-primary"
             />
           </div>
 
@@ -46,7 +52,7 @@ const Modal = ({ isOpen, onClose, row }) => {
               <div className="space-y-1 text-center">
                 <Upload className="mx-auto h-12 w-12 text-gray-400" />
                 <div className="flex text-sm text-gray-600">
-                  <label className="relative cursor-pointer bg-white rounded-md font-medium text-blue-600 hover:text-blue-500">
+                  <label className="relative cursor-pointer bg-white rounded-md font-medium text-primary-600 hover:text-primary-500">
                     <span>Upload a file</span>
                     <input type="file" className="sr-only" onChange={handleFileChange} />
                   </label>
@@ -66,7 +72,7 @@ const Modal = ({ isOpen, onClose, row }) => {
             </button>
             <button
               type="submit"
-              className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
+              className="px-4 py-2 bg-primary-400 text-white rounded-md hover:bg-primary-500"
             >
               Save Changes
             </button>

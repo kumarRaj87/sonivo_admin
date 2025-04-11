@@ -1,19 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Trash2, Edit } from 'lucide-react';
 import Modal from './Modal';
-import TableSkeleton from './TableSkeleton';
 
 const Table = () => {
-  const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedRow, setSelectedRow] = useState(null);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 500);
-    return () => clearTimeout(timer);
-  }, []);
 
   const handleEdit = (row) => {
     setSelectedRow(row);
@@ -104,10 +95,6 @@ const Table = () => {
     // Add more data rows as needed
   ];
 
-  if (loading) {
-    return <TableSkeleton />;
-  }
-
   return (
     <div className="overflow-x-auto">
       <table className="min-w-full bg-white">
@@ -141,7 +128,7 @@ const Table = () => {
                 <div className="flex space-x-2">
                   <button
                     onClick={() => handleEdit(row)}
-                    className="text-blue-600 hover:text-blue-900"
+                    className="text-primary-400 hover:text-primary-500"
                   >
                     <Edit size={18} />
                   </button>

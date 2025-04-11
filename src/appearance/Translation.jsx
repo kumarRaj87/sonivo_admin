@@ -110,7 +110,7 @@ function Translation() {
                   value={newLanguage}
                   onChange={(e) => setNewLanguage(e.target.value)}
                   placeholder="Enter new language name"
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary-500"
                 />
                 <p className="text-sm text-gray-500 mt-1">
                   Please choose one word name of your language like Spanish / English / Chinese

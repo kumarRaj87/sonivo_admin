@@ -1,13 +1,19 @@
-import React from 'react';
-import Header from './Header';
+import React, { useEffect, useState } from 'react';
 import Table from './Table';
-import { IoMdPhonePortrait } from "react-icons/io";
+import Loader from '../loader/Loader';
 const LayoutOrder = () => {
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    setTimeout(() => setLoading(false), 300);
+  }, []);
+
+  if (loading) {
+    return <Loader />;
+  }
   return (
-    <div className="min-h-screen bg-gray-50">
-
-
-<div className="flex flex-col items-center justify-between mb-8">
+    <div className="min-h-[50vh] bg-primary-200 p-2 w-full">
+      <div className="flex flex-col items-center justify-between mb-8">
         <div className="flex justify-start items-center w-full">
           <img
             src='https://sonivo.oneoftheprojects.com/assets/order.svg'
@@ -25,20 +31,10 @@ const LayoutOrder = () => {
               <span> Orders</span>
             </div>
           </div>
-          {/* <button
-            onClick={() => setIsCreateModalOpen(true)}
-            className="text-sm bg-primary-400 text-background mt-4 py-2 px-4 rounded-md hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary/20 flex items-center justify-center gap-2"
-          >
-            <IoMdPhonePortrait className='text-background' size={20} />
-            Create Plan
-          </button> */}
         </div>
       </div>
-      <div className=" pt-4">
-        {/* <Header /> */}
-        <div className="bg-white shadow rounded-lg overflow-hidden">
+        <div className="bg-white rounded-lg overflow-hidden">
           <Table />
-        </div>
       </div>
     </div>
   );

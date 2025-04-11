@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { FaEnvelope, FaTrash } from 'react-icons/fa';
 import EmailModal from './EmailModal';
 import DeleteModal from './DeleteModal';
 
 const LeadsTable = () => {
-  const [loading, setLoading] = useState(true);
   const [leads, setLeads] = useState([
     {
       email: 'alice@example.com',
@@ -36,28 +35,9 @@ const LeadsTable = () => {
   const [isEmailModalOpen, setIsEmailModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 500);
-
-    return () => clearTimeout(timer);
-  }, []);
-
   const handleDelete = () => {
     setLeads(leads.filter(lead => lead !== selectedLead));
   };
-
-  const LoadingSkeleton = () => (
-    <div className="animate-pulse">
-      <div className="h-12 bg-gray-200 rounded mb-4"></div>
-      <div className="h-12 bg-gray-200 rounded"></div>
-    </div>
-  );
-
-  if (loading) {
-    return <LoadingSkeleton />;
-  }
 
   return (
     <>
@@ -79,7 +59,7 @@ const LeadsTable = () => {
                 <td className="p-4">{lead.name}</td>
                 <td className="p-4">{lead.mobile}</td>
                 <td className="p-4">
-                  <button 
+                  <button
                     className="text-gray-600 hover:text-gray-800"
                     onClick={() => {
                       setSelectedLead(lead);
@@ -90,7 +70,7 @@ const LeadsTable = () => {
                   </button>
                 </td>
                 <td className="p-4">
-                  <button 
+                  <button
                     className="text-red-600 hover:text-red-800"
                     onClick={() => {
                       setSelectedLead(lead);

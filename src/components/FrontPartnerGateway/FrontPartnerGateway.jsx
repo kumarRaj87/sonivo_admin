@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from "react";
 import Header from "./Header";
-import AddButton from "./AddButton";
 import PartnerGrid from "./PartnerGrid";
 import EditModal from "./EditModal";
-import SkeletonLoader from "./SkeletonLoader";
+import Loader from "../loader/Loader";
 const FrontPartnerGateway = () => {
-  const [isLoading, setIsLoading] = useState(true);
   const [partners, setPartners] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentPartner, setCurrentPartner] = useState(null);
@@ -15,14 +13,7 @@ const FrontPartnerGateway = () => {
     name: `Partner ${i + 1}`,
     logoUrl: "/image.png"
   }));
-  useEffect(() => {
-    // Simulate loading delay
-    const timer = setTimeout(() => {
-      setPartners(samplePartners);
-      setIsLoading(false);
-    }, 500);
-    return () => clearTimeout(timer);
-  }, []);
+
   const handleEdit = partner => {
     setCurrentPartner(partner);
     setIsModalOpen(true);
@@ -41,14 +32,28 @@ const FrontPartnerGateway = () => {
     }));
     setPartners([...partners, ...newPartners]);
   };
-  return <div className="container mx-auto px-4 py-6 bg-gray-50 min-h-screen">
-      {isLoading ? <SkeletonLoader /> : <>
-          <Header />
-       
-          <hr className="border-gray-200 my-4" />
-          <PartnerGrid partners={partners} onEdit={handleEdit} />
-          <EditModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} partner={currentPartner} onSave={handleSave} />
-        </>}
-    </div>;
+
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    setTimeout(() => 
+   { 
+    setPartners(samplePartners);
+    setLoading(false);
+   }
+    , 300);
+  }, []);
+
+  if (loading) {
+    return <Loader />;
+  }
+  return (
+    <div className="min-h-[50vh] bg-primary-200 p-2 w-full">
+      <Header />
+      <hr className="border-gray-200 my-4" />
+      <PartnerGrid partners={partners} onEdit={handleEdit} />
+      <EditModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} partner={currentPartner} onSave={handleSave} />
+    </div>
+  )
 };
 export default FrontPartnerGateway;

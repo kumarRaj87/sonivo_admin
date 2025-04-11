@@ -1,19 +1,21 @@
 import React, { useState, useEffect } from 'react';
-import { CreditCard, Edit } from 'lucide-react';
-import Skeleton from './Skeleton';
+import { Edit } from 'lucide-react';
 import EditModal from './EditModal';
+import Loader from '../loader/Loader';
 
 const PaymentGateway = () => {
-  const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedGateway, setSelectedGateway] = useState('');
 
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 500);
-    return () => clearTimeout(timer);
+    setTimeout(() => setLoading(false), 300);
   }, []);
+
+  if (loading) {
+    return <Loader />;
+  }
 
   const handleEdit = (gateway) => {
     setSelectedGateway(gateway);
@@ -25,29 +27,10 @@ const PaymentGateway = () => {
     setIsModalOpen(false);
   };
 
-  if (loading) {
-    return <Skeleton />;
-  }
-
   return (
-    <div className="min-h-screen bg-gray-50 p-4 md:p-6 lg:p-8">
-        {/* <div className="flex items-start gap-4 w-full sm:w-auto lg:flex-col" >
-          <img
-            src='https://sonivo.oneoftheprojects.com/assets/payment_gateway.svg'
-            alt=''
-            className='h-16 w-16 sm:h-24 sm:w-24'
-          />
-          <div>
-            <h2 className="text-xl sm:text-2xl font-bold tracking-tight">Payment Gateway</h2>
-            <div className="flex items-center gap-2 text-xs sm:text-sm text-gray-500">
-              <span>Dashboard</span>
-              <span>•</span>
-              <span>Payment Gateway</span>
-            </div>
-          </div>
-        </div> */}
+    <div className="min-h-[50vh] bg-primary-200 p-2 w-full">
 
-<div className="flex flex-col items-center justify-between mb-8">
+      <div className="flex flex-col items-center justify-between mb-8">
         <div className="flex justify-start items-center w-full">
           <img
             src='https://sonivo.oneoftheprojects.com/assets/payment_gateway.svg'
@@ -65,21 +48,9 @@ const PaymentGateway = () => {
               <span>Payment Gateway</span>
             </div>
           </div>
-          {/* <button
-            onClick={() => setIsCreateModalOpen(true)}
-            className="text-sm bg-primary-400 text-background mt-4 py-2 px-4 rounded-md hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary/20 flex items-center justify-center gap-2"
-          >
-            <IoMdPhonePortrait className='text-background' size={20} />
-            Create Plan
-          </button> */}
         </div>
       </div>
       <div className="">
-        {/* <div className="flex items-center gap-2 mb-6">
-          <CreditCard className="text-blue-600" size={24} />
-          <h1 className="text-2xl font-semibold text-gray-900">Payment Gateway</h1>
-        </div> */}
-
         <div className="space-y-6">
           {/* Offline Pay */}
           <div className="bg-white p-6 rounded-lg shadow-sm">
@@ -88,13 +59,13 @@ const PaymentGateway = () => {
               <div className="flex items-center">
                 <button
                   onClick={() => handleEdit('Offline Pay')}
-                  className="text-gray-500 hover:text-blue-600"
+                  className="text-gray-500 hover:text-primary-500"
                 >
                   <Edit size={20} />
                 </button>
                 <label className="relative inline-flex items-center ml-4 cursor-pointer">
                   <input type="checkbox" className="sr-only peer" />
-                  <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                  <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary-500"></div>
                 </label>
               </div>
             </div>
@@ -104,13 +75,13 @@ const PaymentGateway = () => {
                 <input
                   type="text"
                   value="Pay offline"
-                  className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                  className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500"
                 />
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700">Description</label>
                 <textarea
-                  className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                  className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500"
                   rows="3"
                 >Pay offline on this account number xxxxxxxxx and send a screenshot to us on this email xxx@xxx.com</textarea>
               </div>
@@ -125,13 +96,13 @@ const PaymentGateway = () => {
                 <div className="flex items-center">
                   <button
                     onClick={() => handleEdit(gateway)}
-                    className="text-gray-500 hover:text-blue-600"
+                    className="text-gray-500 hover:text-primary-500"
                   >
                     <Edit size={20} />
                   </button>
                   <label className="relative inline-flex items-center ml-4 cursor-pointer">
                     <input type="checkbox" className="sr-only peer" />
-                    <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                    <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary-500"></div>
                   </label>
                 </div>
               </div>
@@ -141,7 +112,7 @@ const PaymentGateway = () => {
                   <input
                     type="text"
                     placeholder="Enter ID"
-                    className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                    className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500"
                   />
                 </div>
                 <div>
@@ -149,7 +120,7 @@ const PaymentGateway = () => {
                   <input
                     type="text"
                     placeholder="Enter Keys"
-                    className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                    className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500"
                   />
                 </div>
               </div>
@@ -157,7 +128,7 @@ const PaymentGateway = () => {
           ))}
         </div>
 
-        <button className="w-full mt-6 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+        <button className="w-full mt-6 px-4 py-2 bg-primary-400 text-white rounded-md hover:bg-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2">
           Update
         </button>
       </div>

@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { X, DollarSign } from 'lucide-react';
 
@@ -16,8 +17,8 @@ const EditModal = ({ user, onClose, onUpdate }) => {
   };
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4">
-      <div className="bg-white rounded-lg w-full max-w-md">
+    <div className="fixed inset-0 h-[100vh] overflow-y-auto bg-black bg-opacity-50 flex items-center justify-center z-[6500]">
+      <div className="bg-background rounded-2xl overflow-y-auto hide-scrollbar w-full max-h-[80vh] max-w-lg">
         <div className="flex justify-between items-center p-4 border-b">
           <h2 className="text-xl font-semibold">Update user</h2>
           <button onClick={onClose} className="text-gray-500 hover:text-gray-700">
@@ -25,51 +26,67 @@ const EditModal = ({ user, onClose, onUpdate }) => {
           </button>
         </div>
 
-        <form onSubmit={handleSubmit} className="p-4 space-y-4">
-          <div className="space-y-2">
-            <label className="block text-sm text-gray-600">Name</label>
+        <form onSubmit={handleSubmit} className="rounded-b-2xl p-6 gap-4 w-full flex flex-col">
+          <div className="relative group">
+            <div className="absolute -top-2.5 left-3 bg-white px-1 text-primary text-[11px]">
+              Name
+            </div>
             <input
               type="text"
               value={formData.name}
               onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-              className="w-full p-2 border rounded focus:ring-2 focus:ring-blue-500"
+              className="w-full pl-3 text-sm rounded-[9px] pr-3 py-2 border border-gray-300 focus:outline-none focus:ring-[1px] focus:ring-primary focus:border-primary"
+              placeholder=""
             />
           </div>
 
-          <div className="space-y-2">
-            <label className="block text-sm text-gray-600">Mobile</label>
+          <div className="relative group">
+            <div className="absolute -top-2.5 left-3 bg-white px-1 text-primary text-[11px]">
+              Mobile
+            </div>
             <input
               type="text"
               value={formData.mobile}
               onChange={(e) => setFormData({ ...formData, mobile: e.target.value })}
-              className="w-full p-2 border rounded focus:ring-2 focus:ring-blue-500"
+              className="w-full pl-3 text-sm rounded-[9px] pr-3 py-2 border border-gray-300 focus:outline-none focus:ring-[1px] focus:ring-primary focus:border-primary"
+              placeholder=""
             />
           </div>
 
-          <div className="space-y-2">
-            <label className="block text-sm text-gray-600">Email</label>
+          <div className="relative group">
+            <div className="absolute -top-2.5 left-3 bg-white px-1 text-primary text-[11px]">
+              Email
+            </div>
             <input
               type="email"
               value={formData.email}
               onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-              className="w-full p-2 border rounded focus:ring-2 focus:ring-blue-500"
+              className="w-full pl-3 text-sm rounded-[9px] pr-3 py-2 border border-gray-300 focus:outline-none focus:ring-[1px] focus:ring-primary focus:border-primary"
+              placeholder=""
             />
           </div>
 
-          <div className="space-y-2">
-            <label className="block text-sm text-gray-600">Password</label>
+          <div className="relative group">
+            <div className="absolute -top-2.5 left-3 bg-white px-1 text-primary text-[11px]">
+              Password
+            </div>
             <input
               type="password"
               value={formData.password}
               onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-              className="w-full p-2 border rounded focus:ring-2 focus:ring-blue-500"
-              placeholder="Enter new password"
+              className="w-full pl-3 text-sm rounded-[9px] pr-3 py-2 border border-gray-300 focus:outline-none focus:ring-[1px] focus:ring-primary focus:border-primary"
+              placeholder=""
             />
           </div>
 
-          <button className="w-full bg-blue-600 text-white py-2 rounded flex items-center justify-center space-x-2 hover:bg-blue-700">
-            <span>Update</span>
-          </button>
+          <div className="flex justify-center w-full">
+            <button
+              type="submit"
+              className="px-4 py-2 w-full text-sm bg-primary-400 text-white rounded-md hover:bg-primary"
+            >
+              Update
+            </button>
+          </div>
         </form>
 
         <div className="p-4 border-t">
@@ -83,7 +100,7 @@ const EditModal = ({ user, onClose, onUpdate }) => {
           
           <div className="grid grid-cols-3 gap-4">
             {['Trial', 'Gold', 'Platinum'].map((plan) => (
-              <div key={plan} className="text-center p-4 rounded-lg border hover:border-blue-500 cursor-pointer">
+              <div key={plan} className="text-center p-4 rounded-lg border hover:border-primary-500 cursor-pointer">
                 <DollarSign className="mx-auto mb-2" size={24} />
                 <h4 className="font-semibold">{plan}</h4>
                 <p className="text-sm text-gray-500">

@@ -1,3 +1,5 @@
+
+
 import React, { useState } from 'react';
 import { X } from 'lucide-react';
 
@@ -34,8 +36,8 @@ const CreatePlanModal = ({ onClose, onSave }) => {
   };
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-[5005]">
-      <div className="bg-white rounded-lg w-full max-w-2xl max-h-[90vh] overflow-y-auto">
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-[6500]">
+      <div className="bg-white rounded-lg w-full max-w-2xl max-h-[90vh] overflow-y-auto hide-scrollbar">
         <div className="flex justify-between items-center p-6 border-b">
           <h2 className="text-2xl font-semibold">Create plan</h2>
           <button onClick={onClose} className="text-gray-500 hover:text-gray-700">
@@ -43,15 +45,17 @@ const CreatePlanModal = ({ onClose, onSave }) => {
           </button>
         </div>
 
-        <form onSubmit={handleSubmit} className="p-6 space-y-6">
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Title</label>
+        <form onSubmit={handleSubmit} className="rounded-b-2xl p-6 gap-4 w-full flex flex-col">
+          <div className="relative group">
+            <div className="absolute -top-2.5 left-3 bg-white px-1 text-primary text-[11px]">
+              Title
+            </div>
             <input
               type="text"
               value={formData.title}
               onChange={(e) => setFormData({...formData, title: e.target.value})}
-              className="w-full p-2 border rounded-lg"
-              placeholder="Enter plan title"
+              className="w-full pl-3 text-sm rounded-[9px] pr-3 py-2 border border-gray-300 focus:outline-none focus:ring-[1px] focus:ring-primary focus:border-primary"
+              placeholder=""
             />
           </div>
 
@@ -61,7 +65,7 @@ const CreatePlanModal = ({ onClose, onSave }) => {
               type="button"
               onClick={() => handleToggle('isTrial')}
               className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
-                formData.isTrial ? 'bg-blue-600' : 'bg-gray-200'
+                formData.isTrial ? 'bg-primary-400' : 'bg-gray-200'
               }`}
             >
               <span
@@ -73,36 +77,42 @@ const CreatePlanModal = ({ onClose, onSave }) => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Price</label>
+            <div className="relative group">
+              <div className="absolute -top-2.5 left-3 bg-white px-1 text-primary text-[11px]">
+                Price
+              </div>
               <input
                 type="text"
                 value={formData.price}
                 onChange={(e) => setFormData({...formData, price: e.target.value})}
-                className="w-full p-2 border rounded-lg"
-                placeholder="Enter price"
+                className="w-full pl-3 text-sm rounded-[9px] pr-3 py-2 border border-gray-300 focus:outline-none focus:ring-[1px] focus:ring-primary focus:border-primary"
+                placeholder=""
               />
             </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Price strike</label>
+            <div className="relative group">
+              <div className="absolute -top-2.5 left-3 bg-white px-1 text-primary text-[11px]">
+                Price strike
+              </div>
               <input
                 type="text"
                 value={formData.priceStrike}
                 onChange={(e) => setFormData({...formData, priceStrike: e.target.value})}
-                className="w-full p-2 border rounded-lg"
-                placeholder="Enter strike price"
+                className="w-full pl-3 text-sm rounded-[9px] pr-3 py-2 border border-gray-300 focus:outline-none focus:ring-[1px] focus:ring-primary focus:border-primary"
+                placeholder=""
               />
             </div>
           </div>
 
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Short description</label>
+          <div className="relative group">
+            <div className="absolute -top-2.5 left-3 bg-white px-1 text-primary text-[11px]">
+              Short description
+            </div>
             <textarea
               value={formData.description}
               onChange={(e) => setFormData({...formData, description: e.target.value})}
-              className="w-full p-2 border rounded-lg"
+              className="w-full pl-3 text-sm rounded-[9px] pr-3 py-2 border border-gray-300 focus:outline-none focus:ring-[1px] focus:ring-primary focus:border-primary"
               rows="3"
-              placeholder="Enter plan description"
+              placeholder=""
             />
           </div>
 
@@ -119,7 +129,7 @@ const CreatePlanModal = ({ onClose, onSave }) => {
                   type="button"
                   onClick={() => handleToggle(field)}
                   className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
-                    formData[field] ? 'bg-blue-600' : 'bg-gray-200'
+                    formData[field] ? 'bg-primary-400' : 'bg-gray-200'
                   }`}
                 >
                   <span
@@ -132,39 +142,45 @@ const CreatePlanModal = ({ onClose, onSave }) => {
             ))}
           </div>
 
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Phonebook limit</label>
+          <div className="relative group">
+            <div className="absolute -top-2.5 left-3 bg-white px-1 text-primary text-[11px]">
+              Phonebook limit
+            </div>
             <input
               type="number"
               value={formData.phonebookLimit}
               onChange={(e) => setFormData({...formData, phonebookLimit: parseInt(e.target.value)})}
-              className="w-full p-2 border rounded-lg"
-              placeholder="Enter phonebook limit"
+              className="w-full pl-3 text-sm rounded-[9px] pr-3 py-2 border border-gray-300 focus:outline-none focus:ring-[1px] focus:ring-primary focus:border-primary"
+              placeholder=""
             />
           </div>
 
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Device limit</label>
+          <div className="relative group">
+            <div className="absolute -top-2.5 left-3 bg-white px-1 text-primary text-[11px]">
+              Device limit
+            </div>
             <input
               type="number"
               value={formData.deviceLimit}
               onChange={(e) => setFormData({...formData, deviceLimit: parseInt(e.target.value)})}
-              className="w-full p-2 border rounded-lg"
-              placeholder="Enter device limit"
+              className="w-full pl-3 text-sm rounded-[9px] pr-3 py-2 border border-gray-300 focus:outline-none focus:ring-[1px] focus:ring-primary focus:border-primary"
+              placeholder=""
             />
           </div>
 
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Plan duration in days</label>
+          <div className="relative group">
+            <div className="absolute -top-2.5 left-3 bg-white px-1 text-primary text-[11px]">
+              Plan duration in days
+            </div>
             <div className="flex items-center gap-2">
               <input
                 type="number"
                 value={formData.planDuration}
                 onChange={(e) => setFormData({...formData, planDuration: parseInt(e.target.value)})}
-                className="flex-1 p-2 border rounded-lg"
-                placeholder="Enter duration"
+                className="flex-1 pl-3 text-sm rounded-[9px] pr-3 py-2 border border-gray-300 focus:outline-none focus:ring-[1px] focus:ring-primary focus:border-primary"
+                placeholder=""
               />
-              <span className="text-blue-600">1 month(s)</span>
+              <span className="text-primary-400">1 month(s)</span>
             </div>
             <p className="text-sm text-gray-500 mt-1">30 days for 1 month and so on...</p>
           </div>
@@ -179,7 +195,7 @@ const CreatePlanModal = ({ onClose, onSave }) => {
             </button>
             <button
               type="submit"
-              className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+              className="px-4 py-2 bg-primary-400 text-white rounded-lg hover:bg-primary-500"
             >
               Save
             </button>

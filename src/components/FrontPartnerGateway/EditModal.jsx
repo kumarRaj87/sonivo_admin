@@ -1,3 +1,5 @@
+
+
 import React, { useState } from "react";
 import { X } from "lucide-react";
 const EditModal = ({
@@ -23,7 +25,7 @@ const EditModal = ({
     onClose();
   };
   if (!isOpen) return null;
-  return <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-[5005]">
+  return <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-[6500]">
       <div className="bg-white rounded-lg p-6 w-full max-w-md">
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-xl font-semibold">Edit Partner</h2>
@@ -32,23 +34,35 @@ const EditModal = ({
           </button>
         </div>
         <form onSubmit={handleSubmit}>
-          <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+          <div className="relative group mb-4">
+            <div className="absolute -top-2.5 left-3 bg-white px-1 text-primary text-[11px]">
               Partner Name
-            </label>
-            <input type="text" name="name" value={editedPartner.name || ""} onChange={handleChange} className="w-full px-3 py-2 border border-gray-300 rounded-md" />
+            </div>
+            <input
+              type="text"
+              name="name"
+              value={editedPartner.name || ""}
+              onChange={handleChange}
+              className="w-full pl-3 text-sm rounded-[9px] pr-3 py-2 border border-gray-300 focus:outline-none focus:ring-[1px] focus:ring-primary focus:border-primary"
+            />
           </div>
-          <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+          <div className="relative group mb-4">
+            <div className="absolute -top-2.5 left-3 bg-white px-1 text-primary text-[11px]">
               Logo URL
-            </label>
-            <input type="text" name="logoUrl" value={editedPartner.logoUrl || ""} onChange={handleChange} className="w-full px-3 py-2 border border-gray-300 rounded-md" />
+            </div>
+            <input
+              type="text"
+              name="logoUrl"
+              value={editedPartner.logoUrl || ""}
+              onChange={handleChange}
+              className="w-full pl-3 text-sm rounded-[9px] pr-3 py-2 border border-gray-300 focus:outline-none focus:ring-[1px] focus:ring-primary focus:border-primary"
+            />
           </div>
           <div className="flex justify-end gap-2 mt-6">
             <button type="button" onClick={onClose} className="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50">
               Cancel
             </button>
-            <button type="submit" className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">
+            <button type="submit" className="px-4 py-2 bg-primary-400 text-white rounded-md hover:bg-primary-500">
               Save Changes
             </button>
           </div>

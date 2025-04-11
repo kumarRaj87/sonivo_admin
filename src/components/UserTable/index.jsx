@@ -1,7 +1,18 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import UserTable from './UserTable';
+import Loader from '../loader/Loader';
 
 const UsersPage = () => {
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    setTimeout(() => setLoading(false), 300);
+  }, []);
+
+  if (loading) {
+    return <Loader />;
+  }
+  
   return (
     <div className="min-h-screen bg-primary-200 w-full">
       <div className="w-full">

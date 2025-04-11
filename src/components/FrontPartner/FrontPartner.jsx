@@ -50,7 +50,7 @@ const FrontPartner = () => {
           </div>
           <button
             onClick={handleFileUpload}
-            className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg flex items-center gap-2"
+            className="bg-primary-400 hover:bg-primary-500 text-white px-4 py-2 rounded-lg flex items-center gap-2"
           >
             <Plus size={20} />
             <span>Add</span>
@@ -85,7 +85,7 @@ const FrontPartner = () => {
             <input
               type="text"
               value={selectedPartner?.name || ''}
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500"
             />
           </div>
           <div>
@@ -110,7 +110,7 @@ const FrontPartner = () => {
             </button>
             <button
               type="submit"
-              className="rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700"
+              className="rounded-md bg-primary-400 px-4 py-2 text-sm font-medium text-white hover:bg-primary-500"
             >
               Save Changes
             </button>

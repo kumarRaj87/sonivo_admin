@@ -5,7 +5,7 @@ const ColorBox = ({ label, color, onColorClick }) => (
   <div className="p-4 bg-gray-50 rounded-lg">
     <p className="text-sm text-gray-600 mb-2">{label}</p>
     <div 
-      className="w-12 h-12 rounded-lg cursor-pointer hover:ring-2 hover:ring-blue-500 transition-all"
+      className="w-12 h-12 rounded-lg cursor-pointer hover:ring-2 hover:ring-primary-500 transition-all"
       style={{ backgroundColor: color }}
       onClick={() => onColorClick(color)}
     />

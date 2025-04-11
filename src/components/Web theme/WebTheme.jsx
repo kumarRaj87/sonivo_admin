@@ -16,32 +16,7 @@ const WebTheme = () => {
 
   return (
     <div className="min-h-screen bg-white p-4">
-      {/* <header className="bg-gray-50 border-b border-gray-200 py-4 px-6">
-        <div className="flex items-center justify-between">
-        <div className="flex items-start gap-4 w-full sm:w-auto lg:flex-col" >
-          <img
-            src='https://sonivo.oneoftheprojects.com/assets/faq.svg'
-            alt=''
-            className='h-16 w-16 sm:h-24 sm:w-24'
-          />
-          <div>
-            <h2 className="text-xl sm:text-2xl font-bold tracking-tight">Web theme</h2>
-            <div className="flex items-center gap-2 text-xs sm:text-sm text-gray-500">
-              <span>Dashboard</span>
-              <span>•</span>
-              <span>Web theme</span>
-            </div>
-          </div>
-        </div>
-          <button className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
-            Save
-          </button>
-        </div>
-      </header> */}
-
-
-              
-<div className="flex flex-col items-center justify-between mb-8">
+      <div className="flex flex-col items-center justify-between mb-8">
         <div className="flex justify-start items-center w-full">
           <img
             src='https://sonivo.oneoftheprojects.com/assets/faq.svg'
@@ -68,7 +43,7 @@ const WebTheme = () => {
           </button>
         </div>
       </div>
-      
+
       <main className=" py-8 px-4 sm:px-6 lg:px-8">
         <div className="bg-white rounded-xl shadow-sm border border-gray-200">
           <div className="border-b border-gray-200 px-6 py-4">

@@ -4,6 +4,7 @@ import PlanCardSkeleton from "./PlanCardSkeleton";
 import EditPlanModal from "./EditPlanModal";
 import CreatePlanModal from "./CreatePlanModal";
 import { IoMdPhonePortrait } from "react-icons/io";
+import Loader from "../loader/Loader";
 
 const PlansContainer = () => {
   const [plans, setPlans] = useState([]);
@@ -11,7 +12,6 @@ const PlansContainer = () => {
   const [editingPlan, setEditingPlan] = useState(null);
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
 
-  // Simulated data
   const mockPlans = [
     {
       id: 1,
@@ -61,12 +61,16 @@ const PlansContainer = () => {
   ];
 
   useEffect(() => {
-    // Simulate API call
     setTimeout(() => {
       setPlans(mockPlans);
-      setLoading(false);
-    }, 500);
+      setLoading(false)
+    }
+      , 300);
   }, []);
+
+  if (loading) {
+    return <Loader />;
+  }
 
   const handleEdit = (plan) => {
     setEditingPlan(plan);
@@ -86,7 +90,7 @@ const PlansContainer = () => {
   };
 
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className="min-h-[50vh] bg-primary-200 p-2 w-full">
       <div className="flex flex-col items-center justify-between mb-8">
         <div className="flex justify-start items-center w-full">
           <img
@@ -115,16 +119,14 @@ const PlansContainer = () => {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
-        {loading
-          ? [...Array(3)].map((_, i) => <PlanCardSkeleton key={i} />)
-          : plans.map((plan) => (
-              <PlanCard
-                key={plan.id}
-                plan={plan}
-                onEdit={() => handleEdit(plan)}
-                onDelete={handleDelete}
-              />
-            ))}
+        {plans.map((plan) => (
+          <PlanCard
+            key={plan.id}
+            plan={plan}
+            onEdit={() => handleEdit(plan)}
+            onDelete={handleDelete}
+          />
+        ))}
       </div>
 
       {editingPlan && (

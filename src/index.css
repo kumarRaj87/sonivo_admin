@@ -33,3 +33,21 @@ body {
   min-width: 320px;
   min-height: 100vh;
 }
+
+.hide-scrollbar {
+  /* For WebKit browsers (Chrome, Safari) */
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  
+  /* Standard property (Firefox, IE/Edge) */
+  scrollbar-width: none;
+  
+  /* Legacy Firefox */
+  -ms-overflow-style: none;
+  
+  /* Ensure scrolling still works */
+  overflow: -moz-scrollbars-none;
+  overflow-y: scroll;
+  overflow-x: scroll;
+}

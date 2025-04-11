@@ -11,6 +11,9 @@ import {
   Filler
 } from 'chart.js';
 import { Users, DollarSign, FileText } from 'lucide-react';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
+import Loader from './loader/Loader';
 
 ChartJS.register(
   CategoryScale,
@@ -25,35 +28,94 @@ ChartJS.register(
 
 function Dashboard() {
   const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  const [dashboardData, setDashboardData] = useState(null);
+  const [error, setError] = useState(null);
 
-  const data = {
-    labels: months,
-    datasets: [
-      {
-        label: 'Paid users',
-        data: [54, 43, 30, 32, 0, 0, 0, 0, 0, 0, 0, 0],
-        borderColor: '#3A7D90',
-        backgroundColor: 'rgba(58, 125, 144, 0.1)',
-        fill: true,
-        tension: 0.4,
-      },
-      {
-        label: 'Unpaid users',
-        data: [3, 16, 4, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        borderColor: 'rgb(46, 74, 98)',
-        backgroundColor: 'rgba(46, 74, 98, 0.1)',
-        fill: true,
-        tension: 0.4,
-      },
-      {
-        label: 'Orders',
-        data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        borderColor: 'rgb(76, 175, 80)',
-        backgroundColor: 'rgba(76, 175, 80, 0.1)',
-        fill: true,
-        tension: 0.4,
-      },
-    ],
+  const fetchDashboardData = async () => {
+    try {
+      const token = localStorage.getItem('authToken');
+      if (!token) {
+        throw new Error('No authentication token found');
+      }
+
+      const response = await axios.get(
+        'http://62.169.31.76:3000/admin/get_dashboard_for_user',
+        {
+          headers: {
+            'accept': 'application/json',
+            'access-token': token
+          }
+        }
+      );
+
+      if (response.data.success) {
+        setDashboardData(response.data.data);
+      } else {
+        throw new Error(response.data.message || 'Failed to fetch dashboard data');
+      }
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchDashboardData();
+  }, []);
+
+  const transformData = (data) => {
+    // Create a map for each month's data for quick lookup
+    const paidMap = {};
+    const unpaidMap = {};
+    const ordersMap = {};
+
+    data.paid.forEach(item => {
+      paidMap[item.month] = item.numberOfSignups;
+    });
+
+    data.unpaid.forEach(item => {
+      unpaidMap[item.month] = item.numberOfSignups;
+    });
+
+    data.orders.forEach(item => {
+      ordersMap[item.month] = item.numberOfOders;
+    });
+
+    // Create arrays in the order of months array
+    const paidData = months.map(month => paidMap[month] || 0);
+    const unpaidData = months.map(month => unpaidMap[month] || 0);
+    const ordersData = months.map(month => ordersMap[month] || 0);
+
+    return {
+      labels: months,
+      datasets: [
+        {
+          label: 'Paid users',
+          data: paidData,
+          borderColor: '#3A7D90',
+          backgroundColor: 'rgba(58, 125, 144, 0.1)',
+          fill: true,
+          tension: 0.4,
+        },
+        {
+          label: 'Unpaid users',
+          data: unpaidData,
+          borderColor: 'rgb(46, 74, 98)',
+          backgroundColor: 'rgba(46, 74, 98, 0.1)',
+          fill: true,
+          tension: 0.4,
+        },
+        {
+          label: 'Orders',
+          data: ordersData,
+          borderColor: 'rgb(76, 175, 80)',
+          backgroundColor: 'rgba(76, 175, 80, 0.1)',
+          fill: true,
+          tension: 0.4,
+        },
+      ],
+    };
   };
 
   const options = {
@@ -90,12 +152,12 @@ function Dashboard() {
   const stats = [
     {
       title: 'Total Users',
-      value: '190',
+      value: dashboardData?.userLength || '0',
       icon: Users,
     },
     {
       title: 'Total orders',
-      value: '45',
+      value: dashboardData?.orderLength || '0',
       icon: DollarSign,
     },
     {
@@ -105,29 +167,40 @@ function Dashboard() {
     },
   ];
 
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    setTimeout(() => setLoading(false), 300);
+  }, []);
+
+  if (loading) {
+    return <Loader />;
+  }
+
+  if (error) {
+    return <div className="min-h-[50vh] bg-primary-200 p-2 w-full flex items-center justify-center text-red-500">Error: {error}</div>;
+  }
+
   return (
     <div className="min-h-[50vh] bg-primary-200 p-2 w-full">
-      <div className="bg-white rounded-lg p-6 shadow-sm">
-        <div className="h-[400px]">
-          <Line data={data} options={options} />
-        </div>
+      <div className="bg-background rounded-lg p-6 w-full lg:h-[80vh] md:h-[50vh] sm:h-[40vh] h-[40vh]">
+        {dashboardData && <Line data={transformData(dashboardData)} options={options} />}
       </div>
-      <div className="space-y-4 mt-9">
+      <div className="w-full mt-5 rounded-lg bg-background p-4 gap-2 flex-col flex justify-start items-start">
         {stats.map((stat, index) => (
-          <div key={index} className="bg-white rounded-lg shadow-sm">
-            <div className="flex items-center px-6 py-4">
-              <stat.icon className="w-6 h-6 text-gray-500 mr-4" />
-              <span className="text-gray-600 flex-1">{stat.title}</span>
-              <span className="text-xl font-semibold text-gray-900">{stat.value}</span>
+          <div key={index} className="w-full justify-between items-center flex border-primary-200 border-b-[1px]">
+            <div className="flex items-center gap-4 w-full justify-start">
+              <stat.icon className="w-10 h-10 text-primary-300" />
+              <h3 className="text-sm font-semibold text-primary-300 w-full">{stat.title}</h3>
+              <div className='w-full flex justify-end items-center'>
+                <p className="text-lg font-semibold text-primary-300">{stat.value}</p>
+              </div>
             </div>
           </div>
         ))}
       </div>
     </div>
-
-
   );
 }
 
 export default Dashboard;
-

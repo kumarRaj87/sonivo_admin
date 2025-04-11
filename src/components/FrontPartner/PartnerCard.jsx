@@ -14,7 +14,7 @@ const PartnerCard = ({ partner, onEdit }) => {
         <div className="flex gap-2">
           <button 
             onClick={() => onEdit(partner)}
-            className="text-blue-600 hover:text-blue-800"
+            className="text-primary-400 hover:text-primary-500"
           >
             <Edit size={18} />
           </button>

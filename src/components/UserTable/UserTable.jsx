@@ -1,87 +1,64 @@
 import React, { useState, useEffect } from 'react';
-import { LogIn, Pencil, Trash2, ChevronDown, ChevronUp, Search } from 'lucide-react';
-import UserSkeleton from './UserSkeleton';
+import { LogIn, Pencil, Trash2, ChevronDown, ChevronUp} from 'lucide-react';
+import axios from 'axios';
 import EditModal from './EditModal';
+import Loader from '../loader/Loader';
 
 const UserTable = () => {
-  const [loading, setLoading] = useState(true);
   const [editingUser, setEditingUser] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [isMobileView, setIsMobileView] = useState(false);
   const [expandedRows, setExpandedRows] = useState([]);
+  const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  const users = [
-    {
-      id: 1,
-      name: "Rana",
-      mobile: "09161603736",
-      email: "xaxehay961@eligou.com",
-      planExpire: "NA",
-    },
-    {
-      id: 2,
-      name: "Sagar",
-      mobile: "9449675050",
-      email: "sagar.ronde@gmail.com",
-      planExpire: "NA",
-    },
-    {
-      id: 3,
-      name: "Amit",
-      mobile: "9876543210",
-      email: "amit.kumar@example.com",
-      planExpire: "2025-05-10",
-    },
-    {
-      id: 4,
-      name: "Priya",
-      mobile: "9123456789",
-      email: "priya.sharma@example.com",
-      planExpire: "NA",
-    },
-    {
-      id: 5,
-      name: "Vikram",
-      mobile: "9001122334",
-      email: "vikram.rai@example.com",
-      planExpire: "2024-12-15",
-    },
-    {
-      id: 6,
-      name: "Neha",
-      mobile: "9988776655",
-      email: "neha.verma@example.com",
-      planExpire: "NA",
-    },
-    {
-      id: 7,
-      name: "Rahul",
-      mobile: "9090909090",
-      email: "rahul.singh@example.com",
-      planExpire: "2025-01-20",
-    },
-    {
-      id: 8,
-      name: "Simran",
-      mobile: "9191919191",
-      email: "simran.kaur@example.com",
-      planExpire: "NA",
-    },
-    {
-      id: 9,
-      name: "Arjun",
-      mobile: "9303030303",
-      email: "arjun.mehta@example.com",
-      planExpire: "2025-03-30",
-    },
-    {
-      id: 10,
-      name: "Sneha",
-      mobile: "9404040404",
-      email: "sneha.das@example.com",
-      planExpire: "NA",
-    },
-  ];
+    const fetchUsers = async () => {
+      try {
+        const token = localStorage.getItem('authToken');
+        if (!token) {
+          throw new Error('No authentication token found');
+        }
+        const response = await axios.get('http://62.169.31.76:3000/admin/get_users', {
+          headers: {
+            'accept': 'application/json',
+            'access-token': token
+          }
+        });
+        
+        if (response.data.success) {
+          setUsers(response.data.data.map(user => ({
+            id: user.id,
+            name: user.name,
+            mobile: user.mobile,
+            email: user.email,
+            planExpire: user.plan_expire || "NA",
+            role: user.role,
+            uid: user.uid
+          })));
+        } else {
+          setError(response.data.message || 'Failed to fetch users');
+        }
+      } catch (err) {
+        setError(err.message || 'An error occurred while fetching users');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+  useEffect(() => {
+    fetchUsers();
+  }, []);
+
+const disableBodyScroll = () => {
+  document.body.style.overflow = 'hidden';
+  document.body.style.paddingRight = '15px';
+};
+
+const enableBodyScroll = () => {
+  document.body.style.overflow = '';
+  document.body.style.paddingRight = '';
+};
 
   useEffect(() => {
     const handleResize = () => {
@@ -91,19 +68,19 @@ const UserTable = () => {
     handleResize();
     window.addEventListener('resize', handleResize);
 
-    // Simulate loading
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 500);
-
     return () => {
       window.removeEventListener('resize', handleResize);
-      clearTimeout(timer);
     };
   }, []);
 
   const handleEdit = (user) => {
+    disableBodyScroll();
     setEditingUser(user);
+  };
+
+  const handleCloseModal = () => {
+    enableBodyScroll();
+    setEditingUser(null);
   };
 
   const handleUpdate = (updatedData) => {
@@ -126,13 +103,32 @@ const UserTable = () => {
   );
 
   if (loading) {
-    return <UserSkeleton />;
+    return (
+      <Loader/>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="bg-white p-4 w-full rounded-xl overflow-hidden text-center text-red-500">
+        <p>Error: {error}</p>
+      </div>
+    );
   }
 
   return (
     <div className="bg-white p-4 w-full rounded-xl overflow-hidden">
+      <div className="mb-4">
+        <input
+          type="text"
+          placeholder="Search by name, email or mobile"
+          className="w-full p-2 border border-gray-300 rounded-md"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
+      </div>
+
       {isMobileView ? (
-        // Mobile View
         <div className="divide-y divide-gray-200">
           {filteredUsers.map((user) => (
             <div key={user.id} className="p-4 hover:bg-primary-200">
@@ -159,10 +155,14 @@ const UserTable = () => {
                     <span className="text-sm font-medium text-primary-400">Plan Expire:</span>
                     <span className="text-sm text-primary">{user.planExpire}</span>
                   </div>
+                  <div className="flex justify-between">
+                    <span className="text-sm font-medium text-primary-400">Role:</span>
+                    <span className="text-sm text-primary">{user.role}</span>
+                  </div>
                   <div className="flex justify-end space-x-3 pt-2">
                     <button
                       onClick={() => handleEdit(user)}
-                      className="text-blue-600 hover:text-blue-800 p-1"
+                      className="text-primary-400 hover:text-primary-500 p-1"
                       title="Edit"
                     >
                       <Pencil size={18} />
@@ -186,17 +186,17 @@ const UserTable = () => {
           ))}
         </div>
       ) : (
-        // Desktop View
         <div className="overflow-x-auto">
           <table className="min-w-full divide-y divide-gray-200">
             <thead className="bg-primary-200">
               <tr>
-                <th className="px-4 py-4 text-left text-sm font-medium text-primary-400  tracking-wider">Auto login</th>
+                <th className="px-4 py-4 text-left text-sm font-medium text-primary-400 tracking-wider">Auto login</th>
                 <th className="px-4 py-4 text-left text-sm font-medium text-primary-400 tracking-wider">Name</th>
                 <th className="px-4 py-4 text-left text-sm font-medium text-primary-400 tracking-wider">Mobile</th>
-                <th className="px-4 py-4 text-left text-sm font-medium text-primary-400  tracking-wider">Email</th>
-                <th className="px-4 py-4 text-left text-sm font-medium text-primary-400  tracking-wider">Plan expire</th>
-                <th className="px-4 py-4 text-left text-sm font-medium text-primary-400  tracking-wider">Actions</th>
+                <th className="px-4 py-4 text-left text-sm font-medium text-primary-400 tracking-wider">Email</th>
+                <th className="px-4 py-4 text-left text-sm font-medium text-primary-400 tracking-wider">Role</th>
+                <th className="px-4 py-4 text-left text-sm font-medium text-primary-400 tracking-wider">Plan expire</th>
+                <th className="px-4 py-4 text-left text-sm font-medium text-primary-400 tracking-wider">Actions</th>
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
@@ -204,7 +204,7 @@ const UserTable = () => {
                 <tr key={user.id} className="hover:bg-primary-200">
                   <td className="px-4 py-4 whitespace-nowrap">
                     <button
-                      className="text-blue-500 hover:text-blue-700"
+                      className="text-primary-400 hover:text-primary-500"
                       title="Auto Login"
                     >
                       <LogIn size={20} />
@@ -213,6 +213,7 @@ const UserTable = () => {
                   <td className="px-4 py-4 whitespace-nowrap text-sm font-medium text-primary">{user.name}</td>
                   <td className="px-4 py-4 whitespace-nowrap text-sm text-primary-400">{user.mobile}</td>
                   <td className="px-4 py-4 whitespace-nowrap text-sm text-primary-400">{user.email}</td>
+                  <td className="px-4 py-4 whitespace-nowrap text-sm text-primary-400">{user.role}</td>
                   <td className="px-4 py-4 whitespace-nowrap text-sm text-primary-400">{user.planExpire}</td>
                   <td className="px-4 py-4 whitespace-nowrap text-sm text-primary-400 space-x-2">
                     <button
@@ -239,13 +240,13 @@ const UserTable = () => {
       {editingUser && (
         <EditModal
           user={editingUser}
-          onClose={() => setEditingUser(null)}
+          onClose={handleCloseModal}
           onUpdate={handleUpdate}
         />
       )}
 
-      {filteredUsers.length === 0 && (
-        <div className="p-8 text-center text-primary-400">
+      {filteredUsers.length === 0 && !loading && (
+        <div className="p-8 text-center flex justify-center items-center text-primary-400 py-3 w-full">
           No users found matching your search criteria.
         </div>
       )}

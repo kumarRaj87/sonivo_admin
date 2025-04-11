@@ -7,7 +7,7 @@ const PlanCard = ({ plan, onEdit, onDelete }) => {
   };
 
   return (
-    <div className="bg-white rounded-lg shadow-md p-6 mb-6">
+    <div className="bg-background rounded-lg p-6 mb-6">
       <div className="flex justify-between items-center mb-4">
         <div className="flex items-center gap-2">
           <span className="text-yellow-500 text-2xl">$</span>

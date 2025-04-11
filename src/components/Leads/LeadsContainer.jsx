@@ -1,12 +1,22 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import LeadsHeader from './LeadsHeader';
 import LeadsTable from './LeadsTable';
+import Loader from '../loader/Loader';
 
 const LeadsContainer = () => {
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    setTimeout(() => setLoading(false), 300);
+  }, []);
+
+  if (loading) {
+    return <Loader />;
+  }
   return (
-    <div className="">
+    <div className="min-h-[50vh] bg-primary-200 p-2 w-full">
       <LeadsHeader />
-      <div className="bg-white rounded-lg shadow-md p-6">
+      <div className="bg-white rounded-xl">
         <LeadsTable />
       </div>
     </div>
