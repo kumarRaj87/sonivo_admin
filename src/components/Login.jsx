@@ -21,7 +21,7 @@ function Login({ setIsAuthenticated }) {
   const [isLoading, setIsLoading] = useState(false);
 
   const navigate = useNavigate()
-  const BASE_URL = import.meta.env.VITE_BASE_URL;
+  const BASE_URL = "https://vokal-api.oyelabs.com";
 
   const handleLogin = async (e) => {
     e.preventDefault()
