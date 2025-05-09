@@ -15,7 +15,7 @@ const FAQ = () => {
   const [sortOrder, setSortOrder] = useState('newest');
   const [deletingId, setDeletingId] = useState(null);
 
-  const BASE_URL = import.meta.env.VITE_BASE_URL;
+  const BASE_URL = "https://vokal-api.oyelabs.com";
 
   const fetchFAQs = async () => {
     try {
