@@ -2,23 +2,7 @@ import React from 'react';
 import { IoMdPhonePortrait } from "react-icons/io";
 const LeadsHeader = () => {
   return (
-    // <div className="mb-8">
-    //   <div className="flex items-start gap-4 w-full sm:w-auto lg:flex-col" >
-    //       <img
-    //         src='https://sonivo.oneoftheprojects.com/assets/contact.svg'
-    //         alt=''
-    //         className='h-16 w-16 sm:h-24 sm:w-24'
-    //       />
-    //       <div>
-    //         <h2 className="text-xl sm:text-2xl font-bold tracking-tight">Leads</h2>
-    //         <div className="flex items-center gap-2 text-xs sm:text-sm text-gray-500">
-    //           <span>Dashboard</span>
-    //           <span>•</span>
-    //           <span>Leads</span>
-    //         </div>
-    //       </div>
-    //     </div>
-    // </div>
+ 
 
     <div className="flex flex-col items-center justify-between mb-8">
         <div className="flex justify-start items-center w-full">

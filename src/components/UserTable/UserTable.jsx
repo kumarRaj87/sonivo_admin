@@ -19,7 +19,7 @@ const UserTable = () => {
         if (!token) {
           throw new Error('No authentication token found');
         }
-        const response = await axios.get('http://62.169.31.76:3000/admin/get_users', {
+        const response = await axios.get('https://vokal-api.oyelabs.com/admin/get_users', {
           headers: {
             'accept': 'application/json',
             'access-token': token

@@ -1,3 +1,5 @@
+
+
 import React, { useState, useEffect } from 'react';
 import { Edit } from 'lucide-react';
 import EditModal from './EditModal';
@@ -70,18 +72,22 @@ const PaymentGateway = () => {
               </div>
             </div>
             <div className="space-y-4">
-              <div>
-                <label className="block text-sm font-medium text-gray-700">Title</label>
+              <div className="relative group">
+                <div className="absolute -top-2.5 left-3 bg-white px-1 text-primary text-[11px]">
+                  Title
+                </div>
                 <input
                   type="text"
                   value="Pay offline"
-                  className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500"
+                  className="w-full pl-3 text-sm rounded-[9px] pr-3 py-2 border border-gray-300 focus:outline-none focus:ring-[1px] focus:ring-primary focus:border-primary"
                 />
               </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700">Description</label>
+              <div className="relative group">
+                <div className="absolute -top-2.5 left-3 bg-white px-1 text-primary text-[11px]">
+                  Description
+                </div>
                 <textarea
-                  className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500"
+                  className="w-full pl-3 text-sm rounded-[9px] pr-3 py-2 border border-gray-300 focus:outline-none focus:ring-[1px] focus:ring-primary focus:border-primary"
                   rows="3"
                 >Pay offline on this account number xxxxxxxxx and send a screenshot to us on this email xxx@xxx.com</textarea>
               </div>
@@ -107,20 +113,24 @@ const PaymentGateway = () => {
                 </div>
               </div>
               <div className="space-y-4">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700">ID</label>
+                <div className="relative group">
+                  <div className="absolute -top-2.5 left-3 bg-white px-1 text-primary text-[11px]">
+                    ID
+                  </div>
                   <input
                     type="text"
                     placeholder="Enter ID"
-                    className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500"
+                    className="w-full pl-3 text-sm rounded-[9px] pr-3 py-2 border border-gray-300 focus:outline-none focus:ring-[1px] focus:ring-primary focus:border-primary"
                   />
                 </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700">Keys</label>
+                <div className="relative group">
+                  <div className="absolute -top-2.5 left-3 bg-white px-1 text-primary text-[11px]">
+                    Keys
+                  </div>
                   <input
                     type="text"
                     placeholder="Enter Keys"
-                    className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500"
+                    className="w-full pl-3 text-sm rounded-[9px] pr-3 py-2 border border-gray-300 focus:outline-none focus:ring-[1px] focus:ring-primary focus:border-primary"
                   />
                 </div>
               </div>

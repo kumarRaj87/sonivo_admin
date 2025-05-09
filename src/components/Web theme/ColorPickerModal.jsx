@@ -8,13 +8,13 @@ const ColorPickerModal = ({ isOpen, onClose, onColorSelect, initialColor }) => {
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
     
-    // This is a simplified version - in a real app you'd want to properly convert x,y coordinates to HSL/RGB
+    
     const color = `hsl(${(x / rect.width) * 360}, ${(y / rect.height) * 100}%, 50%)`;
     onColorSelect(color);
   };
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-[5005]">
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-[5500]">
       <div className="bg-white rounded-lg shadow-xl w-80">
         <div className="relative">
           <div 

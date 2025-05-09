@@ -5,24 +5,25 @@ import axios from 'axios';
 
 const BASE_URL = 'https://vokal-api.oyelabs.com';
 
-const EditPlanModal = ({ plan, onClose, fetchPlans }) => {
+const CreatePlanModal = ({ onClose, fetchPlans }) => {
+
   const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({
-    title: plan.title || '',
-    is_trial: plan.is_trial ? 1 : 0,
-    price: plan.price || '',
-    price_crossed: plan.price_crossed || '',
-    short_des: plan.short_des || '',
-    dialer: plan.dialer ? 1 : 0,
-    call_broadcast: plan.call_broadcast ? 1 : 0,
-    messaging: plan.messaging ? 1 : 0,
-    agent_access: plan.agent_access ? 1 : 0,
-    phonebook_limit: plan.phonebook_limit?.toString() || '100',
-    device_limit: plan.device_limit?.toString() || '1',
-    trial_days: plan.trial_days?.toString() || '30',
-    interval: plan.interval || 'month',
-    interval_count: plan.interval_count || 1,
-    currency: plan.currency || 'INR'
+    title: '',
+    is_trial: 0,
+    price: '',
+    price_crossed: '',
+    short_des: '',
+    dialer: 0,
+    call_broadcast: 0,
+    messaging: 0,
+    agent_access: 0,
+    phonebook_limit: '100',
+    device_limit: '1',
+    trial_days: '30',
+    interval: 'month',
+    interval_count: 1,
+    currency: 'INR'
   });
 
   const handleSubmit = async (e) => {
@@ -31,7 +32,7 @@ const EditPlanModal = ({ plan, onClose, fetchPlans }) => {
 
     try {
       const token = localStorage.getItem('authToken');
-      const response = await axios.put(`${BASE_URL}/plan/update_plan/${plan.id}`, {
+      const response = await axios.post(`${BASE_URL}/plan/add_plan`, {
         title: formData.title,
         is_trial: Number(formData.is_trial),
         price: formData.price,
@@ -57,14 +58,15 @@ const EditPlanModal = ({ plan, onClose, fetchPlans }) => {
       if (response.data.success) {
         await fetchPlans();
         onClose();
-        toast.success('Plan updated successfully');
+        toast.success('Plan created successfully');
       } else {
-        toast.error(response.data.message || 'Failed to update plan');
+        toast.error(response.data.message || 'Failed to create plan');
       }
     } catch (err) {
-      toast.error(err.response?.data?.message || 'Error updating plan');
-      console.error('Error updating plan:', err);
-    } finally {
+      toast.error(err.response?.data?.message || 'Error creating plan');
+      console.error('Error creating plan:', err);
+    }
+    finally {
       setIsLoading(false);
     }
   };
@@ -106,7 +108,7 @@ const EditPlanModal = ({ plan, onClose, fetchPlans }) => {
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-[6500]">
       <div className="bg-background rounded-lg w-full max-w-2xl max-h-[90vh] overflow-y-auto hide-scrollbar">
         <div className="flex justify-between items-center p-6 border-b">
-          <h2 className="text-2xl font-semibold">Edit Plan</h2>
+          <h2 className="text-2xl font-semibold">Create plan</h2>
           <button onClick={onClose} className="text-gray-500 hover:text-gray-700">
             <X className="w-6 h-6" />
           </button>
@@ -317,10 +319,10 @@ const EditPlanModal = ({ plan, onClose, fetchPlans }) => {
                     <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                     <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                   </svg>
-                  Updating...
+                  Saving...
                 </>
               ) : (
-                'Save Changes'
+                'Save'
               )}
             </button>
           </div>
@@ -330,4 +332,4 @@ const EditPlanModal = ({ plan, onClose, fetchPlans }) => {
   );
 };
 
-export default EditPlanModal;
+export default CreatePlanModal;

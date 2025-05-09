@@ -1,8 +1,10 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { FaSave } from "react-icons/fa";
 import { TbMailForward } from "react-icons/tb";
+import Loader from '../components/loader/Loader';
 
 function SmtpSettings() {
+  const [loading, setLoading] = useState(true);
   const [formData, setFormData] = useState({
     smtpEmail: 'email@gmail.com',
     smtpHost: 'smtp@gmail.com',
@@ -26,6 +28,14 @@ function SmtpSettings() {
   const handleCheckSettings = () => {
     console.log('Checking SMTP settings...');
   };
+
+  useEffect(() => {
+    setTimeout(() => setLoading(false), 300);
+  }, []);
+
+  if (loading) {
+    return <Loader />;
+  }
 
   return (
     <div className="min-h-[50vh] bg-primary-200 w-full">

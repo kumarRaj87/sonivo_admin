@@ -39,7 +39,7 @@ function Dashboard() {
       }
 
       const response = await axios.get(
-        'http://62.169.31.76:3000/admin/get_dashboard_for_user',
+        'https://vokal-api.oyelabs.com/admin/get_dashboard_for_user',
         {
           headers: {
             'accept': 'application/json',

@@ -14,7 +14,8 @@ import {
   Palette,
   Settings,
   Mail,
-  Languages
+  Languages,
+  Bandage
 } from 'lucide-react';
 
 const Sidebar = ({ isOpen, toggleSidebar }) => {
@@ -26,10 +27,13 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
     { path: '/users', icon: Users, label: 'Users' },
     { path: '/plan', icon: FileText, label: 'Plan' },
     { path: '/payment-gateway', icon: CreditCard, label: 'Payment Gateway' },
+    { divider: true, label: 'Brand' },
+    { path: '/brand', icon: Bandage, label: 'Brand' },
     { divider: true, label: 'Partnerships' },
     { path: '/front-partner', icon: Users2, label: 'Front Partner' },
     { path: '/orders', icon: ShoppingCart, label: 'Orders' },
     { path: '/leads', icon: MessageSquare, label: 'Leads' },
+   
     { divider: true, label: 'Content Management' },
     { path: '/manage-page', icon: FileEdit, label: 'Manage Page' },
     { path: '/testimonial', icon: MessageCircle, label: 'Testimonial' },

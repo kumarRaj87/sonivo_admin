@@ -4,7 +4,7 @@ const DeleteModal = ({ isOpen, onClose, onConfirm, lead }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-[5005]">
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-[5500]">
       <div className="bg-white rounded-lg p-6 w-full max-w-md">
         <h2 className="text-xl font-bold mb-4">Delete Lead</h2>
         <p className="mb-4">

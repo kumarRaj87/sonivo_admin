@@ -90,7 +90,7 @@ const FAQ = () => {
     try {
       const token = localStorage.getItem('authToken');
       const response = await axios.post(
-        'http://62.169.31.76:3000/admin/add_faq',
+        'https://vokal-api.oyelabs.com/admin/add_faq',
         {
           question: newQuestion,
           answer: newAnswer

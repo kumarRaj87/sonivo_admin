@@ -3,7 +3,7 @@ import { Trash2 } from 'lucide-react';
 
 const TestimonialCard = ({ testimonial }) => {
   return (
-    <div className="bg-white p-6 rounded-lg shadow-md min-w-[300px] md:min-w-[400px] mx-4">
+    <div className="bg-white p-6 rounded-lg shadow-md min-w-[300px] md:min-w-[400px] mx-4 overflow-x-hidden">
       <div className="mb-4">
         <h3 className="text-xl font-semibold mb-2">{testimonial.title}</h3>
         <p className="text-gray-600">{testimonial.description}</p>

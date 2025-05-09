@@ -4,7 +4,7 @@ import Login from './components/Login';
 import Layout from './components/Layout';
 import Dashboard from './components/Dashboard';
 import Users from './components/UserTable/index';
-import Plan from './components/plan-2/PlansContainer';
+import Plan from './components/plan/PlansContainer';
 import PaymentGateway from './components/payment/PaymentGateway';
 import FrontPartner from './components/FrontPartnerGateway/FrontPartnerGateway';
 import Orders from './components/orders/Layout';
@@ -17,6 +17,7 @@ import Testimonial from './components/Testimonial/Testimonial';
 import FAQ from './components/FAQ/FAQ';
 import WebTheme from './components/Web theme/WebTheme';
 import { toast } from 'sonner';
+import BrandManagement from './brand/Brand';
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(() => {
@@ -59,6 +60,7 @@ function App() {
           <Route path="/testimonial" element={<Testimonial />} />
           <Route path="/faq" element={<FAQ />} />
           <Route path="/web-theme" element={<WebTheme />} />
+          <Route path="/brand" element={<BrandManagement />} />
         </Route>
       ) : (
         <Route path="*" element={<Navigate to="/login" replace />} />
